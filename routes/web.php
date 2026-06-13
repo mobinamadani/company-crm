@@ -57,9 +57,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')
     ->name('admin.')
     ->group(function() {
         Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
-    });
-
-
+        Route::get(
+            'attendances',
+            [\App\Http\Controllers\Admin\AttendanceController::class, 'index']
+        )->name('attendances.index');    });
 
 
 

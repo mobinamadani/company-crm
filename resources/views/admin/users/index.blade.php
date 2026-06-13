@@ -2,7 +2,7 @@
 @section('title', 'کاربران')
 @section('content')
     <h2>لیست کاربران</h2>
-    <a href="{{route('admin.users.create')}}" class="btn btn-primary"><i class="bi bi-plus-circle"></i> افزودن کاربر</a>
+    <a href="{{route('admin.users.create')}}" class="btn btn-primary"><i class="bi bi-plus-circle "></i> افزودن کاربر</a>
 
     @if (session('success'))
         <div class="alert alert-success">
@@ -14,9 +14,12 @@
     <div class="card-body">
         <table class="table table-bordered">
             <thead>
-                <tr>نام</tr>
-                <tr>موبایل</tr>
-                <tr>نقش</tr>
+                <tr class="fw-bold fs-6">
+                    <td>#</td>
+                    <td>نام</td>
+                    <td>موبایل</td>
+                    <td>نقش</td>
+                </tr>
             </thead>
 
             <tbody>

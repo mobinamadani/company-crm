@@ -112,6 +112,17 @@
                     </a>
                 </div>
 
+                <div class="col-md-3 mb-3">
+                    <a href="{{ route('admin.attendances.index') }}"
+                       class="btn btn-outline-info w-100 py-3">
+
+                        <i class="bi bi-table d-block fs-3 mb-2"></i>
+
+                        گزارش حضور و غیاب
+
+                    </a>
+                </div>
+
                 @endrole
 
                 <!-- Attendance Of User -->
