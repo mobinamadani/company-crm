@@ -59,9 +59,22 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')
         Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
         Route::get(
             'attendances',
-            [\App\Http\Controllers\Admin\AttendanceController::class, 'index']
-        )->name('attendances.index');    });
+            [\App\Http\Controllers\Admin\AttendanceController::class, 'index'])->name('attendances.index');
+    });
 
+
+
+/*Task*/
+Route::middleware('auth')->prefix('task')->name('task.')
+    ->group(function () {
+    Route::get('/', [\App\Http\Controllers\Task\TaskController::class, 'index'])->name('index');
+    Route::get('/create', [\App\Http\Controllers\Task\TaskController::class, 'create'])->name('create');
+    Route::get('/{task}', [\App\Http\Controllers\Task\TaskController    ::class, 'show'])->name('show');
+    Route::post('/store', [\App\Http\Controllers\Task\TaskController::class, 'store'])->name('store');
+    Route::get('/{task}/edit', [\App\Http\Controllers\Task\TaskController::class, 'edit'])->name('edit');
+    Route::put('/{task}/update', [\App\Http\Controllers\Task\TaskController::class, 'update'])->name('update');
+    Route::delete('/{task}/destroy', [\App\Http\Controllers\Task\TaskController::class, 'destroy'])->name('destroy');
+});
 
 
 Route::get('/dashboard', function () { return view('dashboard.index'); })->name('dashboard');

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
             $table->string('title');
-            $table->string('text');
+            $table->string('text')->nullable();
             $table->date('take_date')->nullable();
             $table->enum('status', [
                 'pending',
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('taskses');
+        Schema::dropIfExists('tasks');
     }
 };
