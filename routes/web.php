@@ -76,6 +76,30 @@ Route::middleware('auth')->prefix('task')->name('task.')
     Route::delete('/{task}/destroy', [\App\Http\Controllers\Task\TaskController::class, 'destroy'])->name('destroy');
 });
 
+/*Leaves*/
+Route::middleware(['auth'])->group(function () {
+    Route::get('/leaves', [\App\Http\Controllers\Admin\LeaveController::class, 'index'])->name('leaves.index');
+    Route::get('/leaves/create', [\App\Http\Controllers\Admin\LeaveController::class, 'create'])->name('leaves.create');
+    Route::post('/leaves', [\App\Http\Controllers\Admin\LeaveController::class, 'store'])->name('leaves.store');
+
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/leaves/{leave}/approve', [\App\Http\Controllers\Admin\LeaveController::class, 'approve'])->name('leaves.approve');
+        Route::get('/leaves/{leave}/reject', [\App\Http\Controllers\Admin\LeaveController::class, 'reject'])->name('leaves.reject');
+    });
+
+});
+
+/*Notification*/
+Route::get('/notification/read/{id}', function ($id) {
+    auth()->user()->notifications()->findOrFail($id)->markAsRead();
+    return back();
+})->name('notifications.read');
+
+Route::get('/notification/read-all', function () {
+    auth()->user()->unreadNotifications->markAsRead();
+    return back();
+})->name('notifications.read.all');
+
 
 Route::get('/dashboard', function () { return view('dashboard.index'); })->name('dashboard');
 

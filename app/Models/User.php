@@ -31,21 +31,23 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // Attendance
     public function attendances()
     {
         return $this->hasMany(Attendance::class);
     }
 
-    // Tasks (many to many)
     public function tasks()
     {
         return $this->belongsToMany(Task::class);
     }
 
-    // Created tasks
     public function createTasks()
     {
         return $this->hasMany(Task::class, 'created_by');
+    }
+
+    public function leaves()
+    {
+        return $this->hasMany(Leaves::class);
     }
 }

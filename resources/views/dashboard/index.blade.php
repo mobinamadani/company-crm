@@ -10,7 +10,6 @@
         <!-- Left -->
         <div>
             <h3 class="mb-1">داشبورد CRM</h3>
-
             <p class="text-muted mb-0">
                 خوش آمدی {{ auth()->user()->name }}
             </p>
@@ -35,17 +34,19 @@
 
                 </button>
 
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
 
                     @forelse(auth()->user()->unreadNotifications as $notification)
 
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item py-2"
+                               href="{{ route('notifications.read', $notification->id) }}">
 
-                                {{ $notification->data['message'] }}
+                                <div class="fw-bold">
+                                    {{ $notification->data['message'] }}
+                                </div>
 
                                 @if(!empty($notification->data['title']))
-                                    <br>
                                     <small class="text-muted">
                                         {{ $notification->data['title'] }}
                                     </small>
@@ -57,12 +58,23 @@
                     @empty
 
                         <li>
-                        <span class="dropdown-item text-muted">
+                        <span class="dropdown-item text-muted text-center">
                             نوتیفیکیشنی وجود ندارد
                         </span>
                         </li>
 
                     @endforelse
+
+                    @if(auth()->user()->unreadNotifications->count())
+                        <li><hr class="dropdown-divider"></li>
+
+                        <li>
+                            <a class="dropdown-item text-center text-primary"
+                               href="{{ route('notifications.read.all') }}">
+                                خواندن همه
+                            </a>
+                        </li>
+                    @endif
 
                 </ul>
 
@@ -79,7 +91,6 @@
     <!-- Statistics -->
     <div class="row">
 
-        <!-- Users -->
         <div class="col-md-4 mb-4">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
@@ -97,7 +108,6 @@
             </div>
         </div>
 
-        <!-- Active Users -->
         <div class="col-md-4 mb-4">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
@@ -115,7 +125,6 @@
             </div>
         </div>
 
-        <!-- Roles -->
         <div class="col-md-4 mb-4">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body d-flex justify-content-between align-items-center">
@@ -146,7 +155,6 @@
 
                 @role('admin')
 
-                <!-- Users -->
                 <div class="col-md-3 mb-3">
                     <a href="{{ route('admin.users.index') }}"
                        class="btn btn-outline-primary w-100 py-3">
@@ -157,7 +165,6 @@
                     </a>
                 </div>
 
-                <!-- Create User -->
                 <div class="col-md-3 mb-3">
                     <a href="{{ route('admin.users.create') }}"
                        class="btn btn-outline-success w-100 py-3">
@@ -168,7 +175,6 @@
                     </a>
                 </div>
 
-                <!-- Attendance Report -->
                 <div class="col-md-3 mb-3">
                     <a href="{{ route('attendance.index') }}"
                        class="btn btn-outline-info w-100 py-3">
@@ -181,7 +187,6 @@
 
                 @endrole
 
-                <!-- Attendance -->
                 <div class="col-md-3 mb-3">
                     <a href="{{ route('attendance.index') }}"
                        class="btn btn-outline-warning w-100 py-3">
@@ -192,13 +197,22 @@
                     </a>
                 </div>
 
-                <!-- Tasks -->
                 <div class="col-md-3 mb-3">
                     <a href="{{ route('task.index') }}"
                        class="btn btn-outline-dark w-100 py-3">
 
                         <i class="bi bi-list-task d-block fs-3 mb-2"></i>
                         تسک‌ها
+
+                    </a>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <a href="{{ route('leaves.index') }}"
+                       class="btn btn-outline-danger w-100 py-3">
+
+                        <i class="bi bi-calendar-x d-block fs-3 mb-2"></i>
+                        مرخصی‌ها
 
                     </a>
                 </div>
