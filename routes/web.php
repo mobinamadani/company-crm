@@ -101,5 +101,4 @@ Route::get('/notification/read-all', function () {
 })->name('notifications.read.all');
 
 
-Route::get('/dashboard', function () { return view('dashboard.index'); })->name('dashboard');
 
